@@ -1,15 +1,15 @@
 type Rootexit @entity {
   id: ID!
-  inputData: Bytes!
-  timestamp: BigInt!
+  inputData: Bytes
+  timestamp: BigInt
   transactionHash: Bytes!
 }
 
 type RootDeposit @entity {
   id: ID!
-  depositData: Bytes!
-  timestamp: BigInt!
-  transactionHash: Bytes!
-  user: Bytes!
+  depositData: Bytes
+  timestamp: BigInt
+  transactionHash: Bytes
+  user: Bytes
   rootToken: Bytes!
 }
