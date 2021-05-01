@@ -1,14 +1,20 @@
 
-import {Rootexit, RootDeposit} from '../../generated/schema'
-
+import { Rootexit, RootDeposit, GlobalRootExitCounter, GlobalRootDepositCounter } from '../../generated/schema'
+import { BigInt } from '@graphprotocol/graph-ts'
 import { ExitCall, DepositForCall } from '../../generated/RootChainManager/RootChainManager'
 
 export function handleRootChainManagerExits(call: ExitCall): void {
     let id = call.transaction.hash.toHex()
+
+    let counter = getGlobalRootExitCounter()
+    let updated = counter.current.plus(BigInt.fromI32(1))
+    counter.current = updated
+    counter.save()
     let transaction = new Rootexit(id)
     
     transaction.timestamp = call.block.timestamp
     transaction.transactionHash = call.transaction.hash
+    transaction.counter = updated
     
     //save exit transaction
     transaction.save()
@@ -16,6 +22,11 @@ export function handleRootChainManagerExits(call: ExitCall): void {
 
 export function handleRootChainManagerDeposits(call: DepositForCall): void {
     let id = call.transaction.hash.toHex()
+    let counter = getGlobalRootDepositCounter()
+    let updated = counter.current.plus(BigInt.fromI32(1))
+    counter.current = updated
+    counter.save()
+
     let transaction = new RootDeposit(id)
     
     transaction.timestamp = call.block.timestamp
@@ -23,7 +34,33 @@ export function handleRootChainManagerDeposits(call: DepositForCall): void {
     transaction.depositData = call.inputs.depositData
     transaction.user = call.inputs.user
     transaction.rootToken = call.inputs.rootToken
+    transaction.counter = updated
     //save exit transaction
     transaction.save()
 }
 
+function getGlobalRootDepositCounter(): GlobalRootDepositCounter {
+    // Only one entry will be kept in this entity
+    let id = 'global-root-deposit-counter'
+    let entity = GlobalRootDepositCounter.load(id)
+    if (entity == null) {
+  
+      entity = new GlobalRootDepositCounter(id)
+      entity.current = BigInt.fromI32(0)
+  
+    }
+    return entity as GlobalRootDepositCounter
+}
+
+function getGlobalRootExitCounter(): GlobalRootExitCounter {
+    // Only one entry will be kept in this entity
+    let id = 'global-root-exit-counter'
+    let entity = GlobalRootExitCounter.load(id)
+    if (entity == null) {
+  
+      entity = new GlobalRootExitCounter(id)
+      entity.current = BigInt.fromI32(0)
+  
+    }
+    return entity as GlobalRootExitCounter
+}

@@ -2,6 +2,7 @@ type Rootexit @entity {
   id: ID!
   timestamp: BigInt
   transactionHash: Bytes!
+  counter: BigInt!
 }
 
 type RootDeposit @entity {
@@ -10,5 +11,16 @@ type RootDeposit @entity {
   timestamp: BigInt
   transactionHash: Bytes
   user: Bytes
-  rootToken: Bytes!
+  rootToken: Bytes
+  counter: BigInt!
+}
+
+type GlobalRootDepositCounter @entity {
+  id: ID!
+  current: BigInt!
+}
+
+type GlobalRootExitCounter @entity {
+  id: ID!
+  current: BigInt!
 }
