@@ -1,0 +1,31 @@
+
+
+{
+    "network": "goerli",
+    "contracts": {
+      "erc20Predicate": {
+        "address": "0xdD6596F2029e6233DEFfaCa316e6A95217d4Dc34",
+        "startBlock": 3000766
+      },
+      "erc721Predicate": {
+        "address": "0x74D83801586E9D3C4dc45FfCD30B54eA9C88cf9b",
+        "startBlock": 3000770
+      },
+      "erc1155Predicate": {
+        "address": "0xB19a86ba1b50f0A395BfdC3557608789ee184dC8",
+        "startBlock": 3000774
+      },
+      "etherPredicate": {
+        "address": "0xe2B01f3978c03D6DdA5aE36b2f3Ac0d66C54a6D5",
+        "startBlock": 3000777
+      },
+      "erc721MintablePredicate": {
+        "address": "0x56E14C4C1748a818a5564D33cF774c59EB3eDF59",
+        "startBlock": 3129918
+      },
+      "rootChainManager": {
+        "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77",
+        "startBlock": 3000761 
+      }
+  }
+}

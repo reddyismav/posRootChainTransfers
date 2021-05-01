@@ -1,0 +1,31 @@
+
+
+{
+    "network": "mainnet",
+    "contracts": {
+      "erc20Predicate": {
+        "address": "0x40ec5B33f54e0E8A33A975908C5BA1c14e5BbbDf",
+        "startBlock": 10735445
+      },
+      "erc721Predicate": {
+        "address": "0xE6F45376f64e1F568BD1404C155e5fFD2F80F7AD",
+        "startBlock": 10735454
+      },
+      "erc1155Predicate": {
+        "address": "0x0B9020d4E32990D67559b1317c7BF0C15D6EB88f",
+        "startBlock": 10735475
+      },
+      "etherPredicate": {
+        "address": "0x8484Ef722627bf18ca5Ae6BcF031c23E6e922B30",
+        "startBlock": 10735538
+      },
+      "erc721MintablePredicate": {
+        "address": "0x932532aA4c0174b8453839A6E44eE09Cc615F2b7",
+        "startBlock": 10735465
+      },
+      "rootChainManager": {
+        "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77",
+        "startBlock": 10735437 
+      }
+  }
+}

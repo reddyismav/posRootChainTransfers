@@ -1,0 +1,139 @@
+specVersion: 0.0.2
+description: Transfer events generated from the root contracts on ethereum
+repository: https://github.com/GraphicalDot/rootChainTransfers
+schema:
+  file: ./schema.graphql
+dataSources:
+
+  - kind: ethereum/contract
+    name: RootChainManager
+    network: {{network}}
+    source:
+      address: "{{contracts.rootChainManager.address}}"
+      abi: RootChainManager
+      startBlock: {{contracts.rootChainManager.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/rootchainmanager.ts      
+      entities:
+        - Rootexit
+        - RootDeposit
+      abis:
+        - name: RootChainManager
+          file: ./abis/RootChainManager.json
+      callHandlers:
+        - function: exit(bytes)
+          handler: handleRootChainManagerExits
+        - function: depositFor(address,address,bytes)
+          handler: handleRootChainManagerDeposits
+
+
+  - kind: ethereum/contract
+    name: ERC20Predicate
+    network: {{network}}
+    source:
+      address: "{{contracts.erc20Predicate.address}}"
+      abi: ERC20Predicate
+      startBlock: {{contracts.erc20Predicate.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/erc20-predicate.ts      
+      entities:
+        - Withdrawal
+      abis:
+        - name: ERC20Predicate
+          file: ./abis/ERC20Predicate.json
+      callHandlers:
+        - function: exitTokens(address,address,bytes)
+          handler: handleNewERC20PredicateTransfer
+
+
+  - kind: ethereum/contract
+    name: ERC721Predicate
+    network: {{network}}
+    source:
+      address: "{{contracts.erc721Predicate.address}}"
+      abi: ERC721Predicate
+      startBlock: {{contracts.erc721Predicate.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/erc721-predicate.ts      
+      entities:
+        - Withdrawal
+      abis:
+        - name: ERC721Predicate
+          file: ./abis/ERC721Predicate.json
+      callHandlers:
+        - function: exitTokens(address,address,bytes)
+          handler: handleNewERC721PredicateTransfer
+
+  - kind: ethereum/contract
+    name: ERC1155Predicate
+    network: {{network}}
+    source:
+      address: "{{contracts.erc1155Predicate.address}}"      
+      abi: ERC1155Predicate
+      startBlock: {{contracts.erc1155Predicate.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/erc1155-predicate.ts      
+      entities:
+        - Withdrawal
+      abis:
+        - name: ERC1155Predicate
+          file: ./abis/ERC1155Predicate.json
+      callHandlers:
+        - function: exitTokens(address,address,bytes)
+          handler: handleNewERC1155PredicateTransfer
+
+
+  - kind: ethereum/contract
+    name: EtherPredicate
+    network: {{network}}
+    source:
+      address: "{{contracts.etherPredicate.address}}"
+      abi: EtherPredicate
+      startBlock: {{contracts.etherPredicate.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/eth-predicate.ts      
+      entities:
+        - Withdrawal
+      abis:
+        - name: EtherPredicate
+          file: ./abis/EtherPredicate.json
+      callHandlers:
+        - function: exitTokens(address,address,bytes)
+          handler: handleNewEtherPredicateTransfer
+
+
+  - kind: ethereum/contract
+    name: MintableERC721Predicate
+    network: {{network}}
+    source:
+      address: "{{contracts.erc721MintablePredicate.address}}"      
+      abi: MintableERC721Predicate
+      startBlock: {{contracts.erc721MintablePredicate.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/erc721-mintable-predicate.ts      
+      entities:
+        - Withdrawal
+      abis:
+        - name: MintableERC721Predicate
+          file: ./abis/MintableERC721Predicate.json
+      callHandlers:
+        - function: exitTokens(address,address,bytes)
+          handler: handleNewMintableERC721PredicateTransfer
