@@ -1,6 +1,5 @@
 type Rootexit @entity {
   id: ID!
-  inputData: Bytes
   timestamp: BigInt
   transactionHash: Bytes!
 }
