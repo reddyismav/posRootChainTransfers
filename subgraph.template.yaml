@@ -28,6 +28,8 @@ dataSources:
           handler: handleRootChainManagerExits
         - function: depositFor(address,address,bytes)
           handler: handleRootChainManagerDeposits
+        - function: depositEtherFor(address)
+          handler: handleRootChainManagerDepositEther
 
 
   # - kind: ethereum/contract
