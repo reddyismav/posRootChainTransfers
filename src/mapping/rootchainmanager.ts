@@ -1,7 +1,7 @@
 
-import { Rootexit, RootDeposit, GlobalRootExitCounter, GlobalRootDepositCounter } from '../../generated/schema'
+import { Rootexit, RootDeposit, GlobalRootExitCounter, GlobalRootDepositCounter, RootDepositEther, GlobalRootDepositEtherCounter } from '../../generated/schema'
 import { BigInt } from '@graphprotocol/graph-ts'
-import { ExitCall, DepositForCall } from '../../generated/RootChainManager/RootChainManager'
+import { ExitCall, DepositForCall, DepositEtherForCall } from '../../generated/RootChainManager/RootChainManager'
 
 export function handleRootChainManagerExits(call: ExitCall): void {
     let id = call.transaction.hash.toHex()
@@ -63,4 +63,35 @@ function getGlobalRootExitCounter(): GlobalRootExitCounter {
   
     }
     return entity as GlobalRootExitCounter
+}
+
+function getGlobalRootDepositEtherCounter(): GlobalRootDepositEtherCounter {
+  // Only one entry will be kept in this entity
+  let id = 'global-root-deposit-ether-counter'
+  let entity = GlobalRootDepositEtherCounter.load(id)
+  if (entity == null) {
+
+    entity = new GlobalRootDepositEtherCounter(id)
+    entity.current = BigInt.fromI32(0)
+
+  }
+  return entity as GlobalRootDepositEtherCounter
+}
+
+export function handleRootChainManagerDepositEther(call: DepositEtherForCall): void {
+  let id = call.transaction.hash.toHex()
+  let counter = getGlobalRootDepositEtherCounter()
+  let updated = counter.current.plus(BigInt.fromI32(1))
+  counter.current = updated
+  counter.save()
+
+  let transaction = new RootDepositEther(id)
+  
+  transaction.timestamp = call.block.timestamp
+  transaction.transactionHash = call.transaction.hash
+  transaction.value = call.transaction.value
+  transaction.user = call.inputs.user
+  transaction.counter = updated
+  //save exit transaction
+  transaction.save()
 }

@@ -15,7 +15,21 @@ type RootDeposit @entity {
   counter: BigInt!
 }
 
+type RootDepositEther @entity {
+  id: ID!
+  value: BigInt
+  timestamp: BigInt
+  transactionHash: Bytes
+  user: Bytes
+  counter: BigInt!
+}
+
 type GlobalRootDepositCounter @entity {
+  id: ID!
+  current: BigInt!
+}
+
+type GlobalRootDepositEtherCounter @entity {
   id: ID!
   current: BigInt!
 }
