@@ -38,3 +38,14 @@ type GlobalRootExitCounter @entity {
   id: ID!
   current: BigInt!
 }
+
+type UpdatedStake @entity {
+  id: ID!
+  nonce: BigInt!
+  validatorId: BigInt!
+  amount: BigInt!
+  logIndex: BigInt!
+  blockNumber: BigInt!
+  transactionHash: Bytes!
+  transactionLogIndex: BigInt!
+}

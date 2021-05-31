@@ -32,26 +32,26 @@ dataSources:
           handler: handleRootChainManagerDepositEther
 
 
-  # - kind: ethereum/contract
-  #   name: ERC20Predicate
-  #   network: {{network}}
-  #   source:
-  #     address: "{{contracts.erc20Predicate.address}}"
-  #     abi: ERC20Predicate
-  #     startBlock: {{contracts.erc20Predicate.startBlock}}
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.4
-  #     language: wasm/assemblyscript
-  #     file: ./src/mapping/erc20-predicate.ts      
-  #     entities:
-  #       - Withdrawal
-  #     abis:
-  #       - name: ERC20Predicate
-  #         file: ./abis/ERC20Predicate.json
-  #     callHandlers:
-  #       - function: exitTokens(address,address,bytes)
-  #         handler: handleNewERC20PredicateTransfer
+  - kind: ethereum/contract
+    name: StakingInfo
+    network: {{network}}
+    source:
+      address: "{{contracts.stakingInfo.address}}"
+      abi: StakingInfo
+      startBlock: {{contracts.stakingInfo.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping/stakingInfo.ts      
+      entities:
+        - StakeUpdate
+      abis:
+        - name: StakingInfo
+          file: ./abis/StakingInfo.json
+      eventHandlers:
+        - event: StakeUpdate(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleStakeUpdate
 
 
   # - kind: ethereum/contract
