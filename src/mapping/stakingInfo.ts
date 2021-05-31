@@ -12,4 +12,6 @@ export function handleStakeUpdate(event: StakeUpdate): void {
     updatedStake.transactionHash = event.transaction.hash;
     updatedStake.logIndex = event.logIndex;
     updatedStake.transactionLogIndex = event.transactionLogIndex;
+
+    updatedStake.save();
 }
