@@ -49,3 +49,11 @@ type UpdatedStake @entity {
   transactionHash: Bytes!
   transactionLogIndex: BigInt!
 }
+
+type lockTokensEntity @entity {
+  id: ID!
+  depositor: Bytes! # address
+  depositReceiver: Bytes! # address
+  rootToken: Bytes!
+  depositData: Bytes!
+}
