@@ -64,13 +64,15 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - lockTokensEntity
+        - lockTokensERC721Entity
       abis:
         - name: ERC721Predicate
           file: ./abis/ERC721Predicate.json
       callHandlers:
         - function: lockTokens(address,address,address,bytes)
           handler: handleLockTokens
+        - function: exitTokens(address,address,bytes)
+          handler: handleExitTokensErc721
       file: ./src/mapping/erc721.ts
 
   - kind: ethereum/contract
@@ -84,13 +86,15 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - lockTokensEntity
+        - lockTokensERC1155Entity
       abis:
         - name: ERC1155Predicate
           file: ./abis/ERC721Predicate.json
       callHandlers:
         - function: lockTokens(address,address,address,bytes)
           handler: handleLockTokens
+        - function: exitTokens(address,address,bytes)
+          handler: handleExitTokensErc1155
       file: ./src/mapping/erc1155.ts
       
   - kind: ethereum/contract
@@ -104,13 +108,15 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - lockTokensEntity
+        - lockTokensERC20Entity
       abis:
         - name: ERC20Predicate
           file: ./abis/ERC20Predicate.json
       callHandlers:
         - function: lockTokens(address,address,address,bytes)
           handler: handleLockTokens
+        - function: exitTokens(address,address,bytes)
+          handler: handleExitTokensErc20
       file: ./src/mapping/erc20.ts
 
   # - kind: ethereum/contract
